@@ -1,11 +1,8 @@
 from app.French import *
-#import Pyv8
 
-
-
-
-
-
-def test_initial():
+def test_initial(param):
     initial()
-    sound("Je parle en Francais.")
+    sound("Je peux parler en français,")
+    sound("mais je ne suis pas française.")
+
+    print(repr(Tense.PASSsimple))

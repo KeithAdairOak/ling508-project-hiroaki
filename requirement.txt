@@ -2,3 +2,4 @@ python-bond
 nodejs
 gTTS
 mpg123
+libsox-fmt-mp3

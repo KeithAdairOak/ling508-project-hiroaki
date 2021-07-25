@@ -1,15 +1,16 @@
 from enum import Enum, Flag, auto
-from gtts import gTTS
 import os
+from gtts import gTTS
+from io import BytesIO
 
 
-class Verbclass(Enum):
+class VerbClass(Enum):
     PREMIER = auto()
     DUEXE = auto()
     TROISE = auto()
 
 
-class Tence(Enum):
+class Tense(Enum):
     PRES = auto()
     IMPARF = auto()
     FUTUR = auto()
@@ -23,8 +24,13 @@ class Tence(Enum):
 class Word():
 
     def __init__(self):
-        self.lex_entry = ""#entry
-        self.surface_form = ""#entry
+        self.lex_entry = ""  # entry
+        self.surface_form = ""  # entry
+
+
+class Gender(Enum):
+    singulier = auto()
+    pluriel = auto()
 
 
 class Noun(Word):
@@ -45,30 +51,38 @@ class Verb(Word):
         self.aspect = ""
 
 
+class PartOfSpeech(Enum):
+    adjectif = auto()
+    adverbe = auto()
+    article = auto()
+    conjonction = auto()
+    interjection = auto()
+    nom = auto()
+    préposition = auto()
+    pronom = auto()
+    verbe = auto()
+
+
+class LexicalEntry():
+
+    def __init__(self):
+        self.form: str
+        self.pos: PartOfSpeech
+        self.noun_gender: Gender
+        self.verb_class: Verbclass
+        self.adj_feminin: str
+        self.adj_plural: str
+        self.adj_feminin_plural: str
+        self.definition: str
+        self.origin_form: str
+
+
 def initial():
-    a = Tence(1)
+    a = Tense(1)
     print(a)
 
 
 def sound(param):
-    # This module is imported so that we can
-    # play the converted audio
 
-    # The text that you want to convert to audio
-
-    # Language in which you want to convert
-    language = 'fr'
-
-    # Passing the text and language to the engine,
-    # here we have marked slow=False. Which tells
-    # the module that the converted audio should
-    # have a high speed
-    myobj = gTTS(text=param, lang=language, slow=False)
-
-    # Saving the converted audio in a mp3 file named
-    # welcome
-    myobj.save(param + ".mp3")
-
-    # Playing the converted file
-    os.system("mpg123 " + param + ".mp3")
+    os.system("gtts-cli '" + param + "' --lang fr | play -t mp3 -")
     return
