@@ -1,12 +1,11 @@
 from app.French import *
-import Pyv8
-
-def test_sound(string):
+#import Pyv8
 
 
 
 
-    test_sound("Je parle en Francais.")
 
 
-initial()
+def test_initial():
+    initial()
+    sound("Je parle en Francais.")

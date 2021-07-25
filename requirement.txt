@@ -1,3 +1,4 @@
 python-bond
 nodejs
-pyv8
+gTTS
+mpg123
