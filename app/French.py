@@ -69,7 +69,7 @@ class LexicalEntry():
         self.form: str
         self.pos: PartOfSpeech
         self.noun_gender: Gender
-        self.verb_class: Verbclass
+        self.verb_class: VerbClass
         self.adj_feminin: str
         self.adj_plural: str
         self.adj_feminin_plural: str
