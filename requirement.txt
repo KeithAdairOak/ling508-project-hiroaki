@@ -1,5 +1,4 @@
 python-bond
-nodejs
 gTTS
-mpg123
+sox
 libsox-fmt-mp3
