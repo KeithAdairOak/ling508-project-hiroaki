@@ -1,110 +1,66 @@
-from enum import Enum, Flag, auto
+from enum import Enum
 import os
-from gtts import gTTS
-from io import BytesIO
-
-class Common(Enum):
-    def description(self,dic):
-        return self.dic[self.value]
-
-class Person(Common):
-    PREMIER = auto()
-    DEUXIÈME = auto()
-    TROISIÈME = auto()
-
-    def __init__(self, dic):
-        dic = {1: "Première personne",
-               2: "Deuxième personne",
-               3: "Troisième personne"}
-        self.dic = dic
 
 
+class Person(Enum):
+    PREMIER = "Première personne"
+    DEUXIÈME = "Deuxième personne"
+    TROISIÈME = "Troisième personne"
 
 
 class VerbClass(Enum):
-    PREMIER = auto()
-    DEUXIÈME = auto()
-    TROISIÈME = auto()
+    PREMIER = "Premier groupe"
+    DEUXIÈME = "Deuxième groupe"
+    TROISIÈME = "Troisième groupe"
 
-    def __init__(self, dic):
-        dic = {1: "Premier groupe",
-               2: "Deuxième groupe",
-               3: "Troisième groupe"}
-        self.dic = dic
 
 class Tense(Enum):
-    PRES = auto()
-    IMPARF = auto()
-    FUTUR = auto()
-    PASS = auto()
-    PASCOM = auto()
-    PLUSQPARF = auto()
-    PASSANT = auto()
-    FUTURANT = auto()
-
-    def __init__(self, dic):
-        dic = {1: "Présent",
-               2: "Imparfait",
-               3: "Futur",
-               4: "Passé simple",
-               5: "Passé composé",
-               6: "Plus‐que‐parfait",
-               7: "Passé antérieur",
-               8: "Futur antérieur"}
-        self.dic = dic
+    PRES = "Présent"
+    IMPARF = "Imparfait"
+    FUTUR = "Futur"
+    PASS = "Passé simple"
+    PASCOM = "Passé composé"
+    PLUSQPARF = "Plus‐que‐parfait"
+    PASSANT = "Passé antérieur"
+    FUTURANT = "Futur antérieur"
 
 
 class Mood(Enum):
-    INDICATIF = auto()
-    SUBJONCTIF = auto()
-    CONDITIONNEL = auto()
-    IMPÉRATIF = auto()
-
-    def __init__(self, dic):
-        dic = {1: "Indicatif",
-               2: "Subjonctif",
-               3: "Conditionnel",
-               4: "Impératif"}
-        self.dic = dic
+    INDICATIF = "Indicatif"
+    SUBJONCTIF = "Subjonctif"
+    CONDITIONNEL = "Conditionnel"
+    IMPÉRATIF = "Impératif"
 
 
 class Aspect(Enum):
-    ACCOMPLI = auto()
-    NONACOMPLI = auto()
+    ACCOMPLI = "Accompli"
+    NONACOMPLI = "Non accompli"
 
-    def __init__(self, dic):
-        dic = {1: "Accompli",
-               2: "Non accompli"}
-        self.dic = dic
 
 class Voice(Enum):
-    ACTIF = auto()
-    PASSIF = auto()
-    PRONOMINAL = auto()
-
-    def __init__(self, dic):
-        dic = {1: "Voix active",
-               2: "Voix passive",
-               3: "Voix pronominale"}
-        self.dic = dic
+    ACTIF = "Voix active"
+    PASSIF = "Voix passive"
+    PRONOMINAL = "Voix pronominale"
 
 class Number(Enum):
-    SINGULIER = auto()
-    PLURIEL = auto()
+    SINGULIER = "Singulier"
+    PLURIEL =  "Pluriel"
 
-    def __init__(self, dic):
-        dic = {1: "Singulier",
-               2: "Pluriel"}
-        self.dic = dic
 
 class Gender(Enum):
-    MASCULIN = auto()
-    FÉMININ = auto()
+    MASCULIN = "Masculin"
+    FÉMININ =  "Féminin"
 
-    def __init__(self, dic):
-        dic = {1: "Masculin",
-               2: "Féminin"}
-        self.dic = dic
+class PartOfSpeech(Enum):
+    ADJ = "adjectif"
+    ADV = "adverbe"
+    ATC = "article"
+    CONJ = "conjonction"
+    INTJ = "interjection"
+    NOM = "nom"
+    PREP = "préposition"
+    PRON = "pronom"
+    VERB = "verbe"
 
 
 class Word:
@@ -133,16 +89,7 @@ class Verb(Word):
         self.aspect = ""
 
 
-class PartOfSpeech(Enum):
-    adjectif = auto()
-    adverbe = auto()
-    article = auto()
-    conjonction = auto()
-    interjection = auto()
-    nom = auto()
-    préposition = auto()
-    pronom = auto()
-    verbe = auto()
+
 
 
 class LexicalEntry():

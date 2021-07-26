@@ -6,6 +6,7 @@ def test():
     sound("mais je ne suis pas française.")
 
     vb = VerbClass
-    assert vb.DEUXIÈME.dic[2] == "Deuxième groupe"
-
+    assert vb.DEUXIÈME.value == "Deuxième groupe"
+    p = Person
+    assert p.TROISIÈME.value == "Troisième personne"
 
