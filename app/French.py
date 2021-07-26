@@ -3,19 +3,22 @@ import os
 from gtts import gTTS
 from io import BytesIO
 
+class Common(Enum):
+    def description(self,dic):
+        return self.dic[self.value]
 
-class Person(Enum):
+class Person(Common):
     PREMIER = auto()
     DEUXIÈME = auto()
     TROISIÈME = auto()
 
-    def __init__(self):
-        self.dic = {self.PREMIER: "Première personne",
-                    self.DEUXIÈME: "Deuxième personne",
-                    self.TROISIÈME: "Troisième personne"}
+    def __init__(self, dic):
+        dic = {1: "Première personne",
+               2: "Deuxième personne",
+               3: "Troisième personne"}
+        self.dic = dic
 
-    def description(self):
-        return self.dic[self.value]
+
 
 
 class VerbClass(Enum):
@@ -23,12 +26,11 @@ class VerbClass(Enum):
     DEUXIÈME = auto()
     TROISIÈME = auto()
 
-
-#   def __init__(self):
-#       self.description = {self.PREMIER: "Premier groupe",
-#                           self.DEUXIÈME: "Deuxième groupe",
-#                           self.TROISIÈME: "Troisième groupe"}
-
+    def __init__(self, dic):
+        dic = {1: "Premier groupe",
+               2: "Deuxième groupe",
+               3: "Troisième groupe"}
+        self.dic = dic
 
 class Tense(Enum):
     PRES = auto()
@@ -40,15 +42,16 @@ class Tense(Enum):
     PASSANT = auto()
     FUTURANT = auto()
 
-    def __init__(self):
-        self.description = {self.PRES: "Présent",
-                            self.IMPARF: "Imparfait",
-                            self.FUTUR: "Futur",
-                            self.PASS: "Passé simple",
-                            self.PASCOM: "Passé composé",
-                            self.PLUSQPARF: "Plus‐que‐parfait",
-                            self.PASSANT: "Passé antérieur",
-                            self.FUTURANT: "Futur antérieur"}
+    def __init__(self, dic):
+        dic = {1: "Présent",
+               2: "Imparfait",
+               3: "Futur",
+               4: "Passé simple",
+               5: "Passé composé",
+               6: "Plus‐que‐parfait",
+               7: "Passé antérieur",
+               8: "Futur antérieur"}
+        self.dic = dic
 
 
 class Mood(Enum):
@@ -57,31 +60,51 @@ class Mood(Enum):
     CONDITIONNEL = auto()
     IMPÉRATIF = auto()
 
-    def __init__(self):
-        self.description = {self.PRES: "Indicatif",
-                            self.PLUSQPARF: "Subjonctif",
-                            self.PASSANT: "Conditionnel",
-                            self.FUTURANT: "Impératif"}
+    def __init__(self, dic):
+        dic = {1: "Indicatif",
+               2: "Subjonctif",
+               3: "Conditionnel",
+               4: "Impératif"}
+        self.dic = dic
 
 
 class Aspect(Enum):
     ACCOMPLI = auto()
     NONACOMPLI = auto()
 
-    def __init__(self):
-        self.description = {self.ACCOMPLI: "Accompli",
-                            self.NONACOMPLI: "Non accompli"}
-
+    def __init__(self, dic):
+        dic = {1: "Accompli",
+               2: "Non accompli"}
+        self.dic = dic
 
 class Voice(Enum):
     ACTIF = auto()
     PASSIF = auto()
     PRONOMINAL = auto()
 
-    def __init__(self):
-        self.description = {self.ACTIF: "Voix active",
-                            self.PASSIF: "Voix passive",
-                            self.PRONOMINAL: "Voix pronominale"}
+    def __init__(self, dic):
+        dic = {1: "Voix active",
+               2: "Voix passive",
+               3: "Voix pronominale"}
+        self.dic = dic
+
+class Number(Enum):
+    SINGULIER = auto()
+    PLURIEL = auto()
+
+    def __init__(self, dic):
+        dic = {1: "Singulier",
+               2: "Pluriel"}
+        self.dic = dic
+
+class Gender(Enum):
+    MASCULIN = auto()
+    FÉMININ = auto()
+
+    def __init__(self, dic):
+        dic = {1: "Masculin",
+               2: "Féminin"}
+        self.dic = dic
 
 
 class Word:
@@ -90,24 +113,6 @@ class Word:
         self.surface_form = param
 
         self.lex_entry = ""  # entry
-
-
-class Number(Enum):
-    SINGULIER = auto()
-    PLURIEL = auto()
-
-    def __init__(self):
-        self.description = {self.SINGULIER: "Singulier",
-                            self.PLURIEL: "Pluriel"}
-
-
-class Gender(Enum):
-    MASCULIN = auto()
-    FÉMININ = auto()
-
-    def __init__(self):
-        self.description = {self.MASCULIN: "Masculin",
-                            self.FÉMININ: "Féminin"}
 
 
 class Noun(Word):
