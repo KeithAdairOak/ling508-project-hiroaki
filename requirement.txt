@@ -1,4 +1,6 @@
+pytest
 python-bond
 gTTS
 sox
 libsox-fmt-mp3
+mysql-connector
