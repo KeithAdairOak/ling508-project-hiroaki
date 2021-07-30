@@ -1,3 +1,0 @@
-gTTS
-sox
-libsox-fmt-mp3

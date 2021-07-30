@@ -1,0 +1,9 @@
+<<<<<<< HEAD
+=======
+pytest
+python-bond
+>>>>>>> dd4cef8850053c3b0b6baccea86ae294358dbec2
+gTTS
+sox
+libsox-fmt-mp3
+mysql-connector
