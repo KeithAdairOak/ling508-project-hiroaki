@@ -92,8 +92,7 @@ class Verb(Word):
         self.aspect = ""
 
 
-class LexicalEntry():
-
+class LexicalEntry:
     def __init__(self):
         self.form: str
         self.pos: PartOfSpeech
