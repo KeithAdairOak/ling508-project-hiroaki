@@ -107,8 +107,8 @@ class LexicalEntry():
 
 
 def sound(param):
-    tts = gTTS(text=param, lang='fr')
     filename = param + '.mp3'
+    tts = gTTS(text=param, lang='fr')
     tts.save(filename)
     os.system('mpg123 "' + filename + '"')
     os.system('rm "' + filename + '"')
