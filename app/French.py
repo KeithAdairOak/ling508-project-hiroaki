@@ -1,66 +1,69 @@
 from enum import Enum
+from gtts import gTTS
 import os
 
 
 class Person(Enum):
-    PREMIER = "Première personne"
-    DEUXIÈME = "Deuxième personne"
-    TROISIÈME = "Troisième personne"
+    PRE = "Première personne"
+    DEU = "Deuxième personne"
+    TRO = "Troisième personne"
 
 
 class VerbClass(Enum):
-    PREMIER = "Premier groupe"
-    DEUXIÈME = "Deuxième groupe"
-    TROISIÈME = "Troisième groupe"
+    PRE = "Premier groupe"
+    DEU = "Deuxième groupe"
+    TRO = "Troisième groupe"
 
 
 class Tense(Enum):
-    PRES = "Présent"
-    IMPARF = "Imparfait"
-    FUTUR = "Futur"
-    PASS = "Passé simple"
-    PASCOM = "Passé composé"
-    PLUSQPARF = "Plus‐que‐parfait"
-    PASSANT = "Passé antérieur"
-    FUTURANT = "Futur antérieur"
+    PRE = "Présent"
+    IMP = "Imparfait"
+    FUT = "Futur"
+    PSS = "Passé simple"
+    PSC = "Passé composé"
+    PQP = "Plus‐que‐parfait"
+    PAN = "Passé antérieur"
+    FAN = "Futur antérieur"
 
 
 class Mood(Enum):
-    INDICATIF = "Indicatif"
-    SUBJONCTIF = "Subjonctif"
-    CONDITIONNEL = "Conditionnel"
-    IMPÉRATIF = "Impératif"
+    IND = "Indicatif"
+    SUB = "Subjonctif"
+    CON = "Conditionnel"
+    IMP = "Impératif"
 
 
 class Aspect(Enum):
-    ACCOMPLI = "Accompli"
-    NONACOMPLI = "Non accompli"
+    ACC = "Accompli"
+    NAC = "Non accompli"
 
 
 class Voice(Enum):
-    ACTIF = "Voix active"
-    PASSIF = "Voix passive"
-    PRONOMINAL = "Voix pronominale"
+    ACT = "Voix active"
+    PAS = "Voix passive"
+    PRO = "Voix pronominale"
+
 
 class Number(Enum):
-    SINGULIER = "Singulier"
-    PLURIEL =  "Pluriel"
+    S = "Singulier"
+    P = "Pluriel"
 
 
 class Gender(Enum):
-    MASCULIN = "Masculin"
-    FÉMININ =  "Féminin"
+    M = "Masculin"
+    F = "Féminin"
+
 
 class PartOfSpeech(Enum):
     ADJ = "adjectif"
     ADV = "adverbe"
     ATC = "article"
-    CONJ = "conjonction"
-    INTJ = "interjection"
+    CON = "conjonction"
+    INT = "interjection"
     NOM = "nom"
-    PREP = "préposition"
-    PRON = "pronom"
-    VERB = "verbe"
+    PRE = "préposition"
+    PRO = "pronom"
+    VRB = "verbe"
 
 
 class Word:
@@ -89,9 +92,6 @@ class Verb(Word):
         self.aspect = ""
 
 
-
-
-
 class LexicalEntry():
 
     def __init__(self):
@@ -99,13 +99,17 @@ class LexicalEntry():
         self.pos: PartOfSpeech
         self.noun_gender: Gender
         self.verb_class: VerbClass
-        self.adj_feminin: str
-        self.adj_plural: str
-        self.adj_feminin_plural: str
+        self.adj_f: str
+        self.adj_p: str
+        self.adj_fp: str
         self.definition: str
         self.origin_form: str
 
 
 def sound(param):
-    os.system("gtts-cli '" + param + "' --lang fr | play -t mp3 -")
+    tts = gTTS(text=param, lang='fr')
+    filename = param + '.mp3'
+    tts.save(filename)
+    os.system('mpg123 "' + filename + '"')
+    os.system('rm "' + filename + '"')
     return
