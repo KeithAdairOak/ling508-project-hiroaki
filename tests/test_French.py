@@ -10,3 +10,11 @@ def test():
     p = Person
     assert p.TRO.value == "Troisième personne"
 
+
+def sound(param):
+    filename = param + '.mp3'
+    tts = gTTS(text=param, lang='fr')
+    tts.save(filename)
+    os.system('mpg123 "' + filename + '"')
+    os.system('rm "' + filename + '"')
+    return
