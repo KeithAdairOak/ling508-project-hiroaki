@@ -1,4 +1,5 @@
-import model.enums
+from model.enums import PartOfSpeech, Gender, VerbClass
+
 
 class Word:
 

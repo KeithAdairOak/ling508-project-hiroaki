@@ -1,5 +1,5 @@
 import abc
-from model.lexical_entry import LexicalEntry
+from model.generators import LexicalEntry
 
 
 class Repository(metaclass=abc.ABCMeta):
