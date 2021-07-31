@@ -1,6 +1,5 @@
 from model.enums import PartOfSpeech, Gender, VerbClass
 
-
 class Word:
 
     def __init__(self, param):

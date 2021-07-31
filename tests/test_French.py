@@ -1,20 +1,17 @@
-from app.French import *
+from app.main import *
 
+#from model.generators import VerbClass
+import model
 
 def test():
+
     sound("Je peux parler en français,")
     sound("mais je ne suis pas française.")
-
+ #   print(dir(model))
     vb = VerbClass
     assert vb.DEU.value == "Deuxième groupe"
     p = Person
     assert p.TRO.value == "Troisième personne"
 
 
-def sound(param):
-    filename = param + '.mp3'
-    tts = gTTS(text=param, lang='fr')
-    tts.save(filename)
-    os.system('mpg123 "' + filename + '"')
-    os.system('rm "' + filename + '"')
-    return
+

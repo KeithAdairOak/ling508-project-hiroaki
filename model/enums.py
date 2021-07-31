@@ -1,18 +1,18 @@
-import enum
+from enum import Enum
 
-class Person(enum):
+class Person(Enum):
     PRE = "Première personne"
     DEU = "Deuxième personne"
     TRO = "Troisième personne"
 
 
-class VerbClass(enum):
+class VerbClass(Enum):
     PRE = "Premier groupe"
     DEU = "Deuxième groupe"
     TRO = "Troisième groupe"
 
 
-class Tense(enum):
+class Tense(Enum):
     PRE = "Présent"
     IMP = "Imparfait"
     FUT = "Futur"
@@ -23,35 +23,35 @@ class Tense(enum):
     FAN = "Futur antérieur"
 
 
-class Mood(enum):
+class Mood(Enum):
     IND = "Indicatif"
     SUB = "Subjonctif"
     CON = "Conditionnel"
     IMP = "Impératif"
 
 
-class Aspect(enum):
+class Aspect(Enum):
     ACC = "Accompli"
     NAC = "Non accompli"
 
 
-class Voice(enum):
+class Voice(Enum):
     ACT = "Voix active"
     PAS = "Voix passive"
     PRO = "Voix pronominale"
 
 
-class Number(enum):
+class Number(Enum):
     S = "Singulier"
     P = "Pluriel"
 
 
-class Gender(enum):
+class Gender(Enum):
     M = "Masculin"
     F = "Féminin"
 
 
-class PartOfSpeech(enum):
+class PartOfSpeech(Enum):
     ADJ = "adjectif"
     ADV = "adverbe"
     ATC = "article"
@@ -61,5 +61,3 @@ class PartOfSpeech(enum):
     PRE = "préposition"
     PRO = "pronom"
     VRB = "verbe"
-
-
