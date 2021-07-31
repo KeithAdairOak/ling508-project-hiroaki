@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class Person(Enum):
     PRE = "Première personne"
     DEU = "Deuxième personne"

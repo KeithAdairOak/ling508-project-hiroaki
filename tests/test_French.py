@@ -1,8 +1,5 @@
 from app.main import *
 
-#from model.generators import VerbClass
-import model
-
 def test():
 
     sound("Je peux parler en français,")
