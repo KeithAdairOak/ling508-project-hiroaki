@@ -2,3 +2,6 @@ gTTS~=2.2.3
 pytest
 mysql-connector
 mpg123
+requests~=2.22.0
+mysql-connector-python
+BeautifulSoup4

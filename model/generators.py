@@ -29,6 +29,7 @@ class Verb(Word):
 
 class LexicalEntry:
     def __init__(self):
+        self.entry: str
         self.form: str
         self.pos: PartOfSpeech
         self.noun_gender: Gender
@@ -38,3 +39,8 @@ class LexicalEntry:
         self.adj_fp: str
         self.definition: str
         self.origin_form: str
+
+
+class LexicalEntries:
+    def __init__(self):
+        self = list(LexicalEntry)

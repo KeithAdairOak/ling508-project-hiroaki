@@ -1,14 +1,10 @@
 from app.main import *
 
-def test():
 
-    sound("Je peux parler en français,")
-    sound("mais je ne suis pas française.")
- #   print(dir(model))
+def test_fetch():
     vb = VerbClass
     assert vb.DEU.value == "Deuxième groupe"
     p = Person
     assert p.TRO.value == "Troisième personne"
 
-
-
+    print("\n", [(_.entry, _.form, _.origin_form) for _ in fetch("aimer")])

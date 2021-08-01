@@ -1,9 +1,9 @@
 import abc
-from model.generators import LexicalEntry
+from model.generators import LexicalEntries
 
 
 class Repository(metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
-    def load_lexicon(self) -> list[LexicalEntry]:
+    def select_lexicon(self, param) -> LexicalEntries:
         raise NotImplementedError
