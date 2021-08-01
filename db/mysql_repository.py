@@ -23,15 +23,19 @@ class MysqlRepository(Repository):
 
     def __del__(self):
         self.connection.close()
+
     def mapper(self, entry: dict) -> LexicalEntry:
-        lexical_entry = LexicalEntry(entry=entry["entry"],
-                                     form=entry["form"],
-                                     pos=entry["pos"],
-                                     origin_form=entry["origin_form"])
-#                                     noun_gender=entry.get(entry),
-#                                     noun_declension=self.map_noun_declension(entry),
-#                                     chapter=entry.get('chapter'))
+        lexical_entry = LexicalEntry()
+        #
+        lexical_entry.entry = entry["entry"]
+        lexical_entry.form = entry["form"]
+        lexical_entry.pos = entry["pos"]
+        lexical_entry.origin_form = entry["origin_form"]
+        #        lexical_entry.noun_gender=entry.get(entry),
+        #        lexical_entry.noun_declension=self.map_noun_declension(entry),
+        #        lexical_entry.chapter=entry.get('chapter'))
         return lexical_entry
+
     def select_lexicon(self, param) -> LexicalEntries:
         cond = '"' + param + '"'
         sql = ("SELECT * from lexicon where entry = " + cond)
@@ -74,13 +78,13 @@ class MysqlRepository(Repository):
                    + ',' +
                    '""'  # entry.verb_class
                    + "," +
-                   '""'  #   entry.adj_f + "," +
+                   '""'  # entry.adj_f + "," +
                    + "," +
-                   '""'  #   entry.adj_p + "," +
+                   '""'  # entry.adj_p + "," +
                    + "," +
-                   '""'  #   entry.adj_fp
+                   '""'  # entry.adj_fp
                    + "," +
-                   '""'  #   entry.definition
+                   '""'  # entry.definition
                    + "," +
                    '"' + entry.origin_form + '")')
             self.cursor.execute(sql)

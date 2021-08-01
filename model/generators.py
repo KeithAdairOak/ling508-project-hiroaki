@@ -29,16 +29,16 @@ class Verb(Word):
 
 class LexicalEntry:
     def __init__(self):
-        self.entry: str
-        self.form: str
-        self.pos: PartOfSpeech
-        self.noun_gender: Gender
-        self.verb_class: VerbClass
-        self.adj_f: str
-        self.adj_p: str
-        self.adj_fp: str
-        self.definition: str
-        self.origin_form: str
+        self.entry = ""
+        self.form = ""
+        self.pos = ""#: PartOfSpeech
+        self.noun_gender = ""#: Gender
+        self.verb_class = ""#: VerbClass
+        self.adj_f = ""#: str
+        self.adj_p = ""#: str
+        self.adj_fp = ""#: str
+        self.definition = ""#: str
+        self.origin_form = ""#: str
 
 
 class LexicalEntries:

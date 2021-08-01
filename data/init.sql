@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS french_words;
 CREATE DATABASE french_words;
 #ALTER DATABASE french_words CHARACTER SET utf8 collate utf8_unicode_ci;
 USE french_words;

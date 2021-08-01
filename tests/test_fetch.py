@@ -7,4 +7,10 @@ def test_fetch():
     p = Person
     assert p.TRO.value == "Troisième personne"
 
-    print("\n", [(_.entry, _.form, _.origin_form) for _ in fetch("aimer")])
+    entries = fetch("aimer")
+    print("\n", [(_.entry, _.form, _.origin_form) for _ in entries])
+    assert len(entries) == 3
+
+    entries = fetch("cheval")
+    print("\n", [(_.entry, _.form, _.origin_form) for _ in entries])
+    assert len(entries) == 2
