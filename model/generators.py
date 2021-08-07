@@ -34,9 +34,9 @@ class LexicalEntry:
         self.pos = ""#: PartOfSpeech
         self.noun_gender = ""#: Gender
         self.verb_class = ""#: VerbClass
-        self.adj_f = ""#: str
-        self.adj_p = ""#: str
-        self.adj_fp = ""#: str
+        self.form_f = ""#: str
+        self.form_p = ""#: str
+        self.form_fp = ""#: str
         self.definition = ""#: str
         self.origin_form = ""#: str
 

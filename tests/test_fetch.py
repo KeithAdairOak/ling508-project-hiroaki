@@ -14,3 +14,8 @@ def test_fetch():
     entries = fetch("cheval")
     print("\n", [(_.entry, _.form, _.origin_form) for _ in entries])
     assert len(entries) == 2
+
+    entries = fetch("difficile")
+    print("\n", [(_.entry, _.form, _.origin_form) for _ in entries])
+  #  assert len(entries) == 2
+

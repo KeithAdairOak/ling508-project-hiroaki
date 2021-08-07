@@ -47,9 +47,9 @@ class MysqlRepository(Repository):
                     "pos": pos,
                     "gender": gender,
                     "verb_class": verb_class,
-                    "adj_f": adj_f,
-                    "adj_p": adj_p,
-                    "adj_fp": adj_fp,
+                    "form_f": adj_f,
+                    "form_p": adj_p,
+                    "form_fp": adj_fp,
                     "definition": definition,
                     "origin_form": origin_form
                     } for (id, entry, form, pos, gender, verb_class, adj_f,
@@ -65,15 +65,15 @@ class MysqlRepository(Repository):
                    'pos, '
                    'gender, '
                    'verb_class, '
-                   'adj_f, '
-                   'adj_p, '
-                   'adj_fp, '
+                   'form_f, '
+                   'form_p, '
+                   'form_fp, '
                    'definition, '
                    'origin_form)'
                    'VALUES (' +
                    '"' + entry.entry + '",' +
                    '"' + entry.form + '",' +
-                   '"' + entry.pos[:3] + '",' +
+                   '"' + entry.pos + '",' +
                    '""'  # entry.noun_gender
                    + ',' +
                    '""'  # entry.verb_class
