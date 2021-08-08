@@ -39,6 +39,7 @@ class LexicalEntry:
         self.form_fp = ""#: str
         self.definition = ""#: str
         self.origin_form = ""#: str
+        self.origin_lang = ""#: str
 
 
 class LexicalEntries:
