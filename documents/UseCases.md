@@ -7,10 +7,16 @@ To develop an e-lexcon of French language
 #### 1. Parse a word - the app takes a word as input and returns morphological parse information, such as part of speech (incl. gender or verb group, etc.), meaning in English, word origin(if possible).
 
 Input: `aimer`
-Output: `Verbe transitif du 1er groupe, "to love", "amare(Latin)"`
+Output: `Verbe' '1', 'amare' 'latin'`
 
 Input: `chien`
-Output: `Nom masculin, "dog", "canis(Latin)"`
+#Output: `Nom' 'masculin' 'canis' 'latin'`
+
+Input: `cheval`
+#Output: 
+
+Input: `difficile`
+#Output: 
 
 #### 2. verb conjugation - the app takes a infinitive verb and returns all conjugation.
 See https://la-conjugaison.nouvelobs.com/
