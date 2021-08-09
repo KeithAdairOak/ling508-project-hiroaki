@@ -31,7 +31,11 @@ class MysqlRepository(Repository):
         lexical_entry.form = entry["form"]
         lexical_entry.pos = entry["pos"]
         lexical_entry.origin_form = entry["origin_form"]
-        #        lexical_entry.noun_gender=entry.get(entry),
+        lexical_entry.origin_lang = entry["origin_lang"]
+        lexical_entry.verb_class = entry["verb_class"]
+
+        lexical_entry.noun_gender = entry["gender"]
+
         #        lexical_entry.noun_declension=self.map_noun_declension(entry),
         #        lexical_entry.chapter=entry.get('chapter'))
         return lexical_entry
@@ -51,9 +55,10 @@ class MysqlRepository(Repository):
                     "form_p": adj_p,
                     "form_fp": adj_fp,
                     "definition": definition,
+                    "origin_lang": origin_lang,
                     "origin_form": origin_form
                     } for (id, entry, form, pos, gender, verb_class, adj_f,
-                           adj_p, adj_fp, definition, origin_form) in self.cursor]
+                           adj_p, adj_fp, definition, origin_lang, origin_form) in self.cursor]
 
         return [self.mapper(entry) for entry in entries]
 
@@ -69,15 +74,16 @@ class MysqlRepository(Repository):
                    'form_p, '
                    'form_fp, '
                    'definition, '
+                   'origin_lang, '
                    'origin_form)'
                    'VALUES (' +
                    '"' + entry.entry + '",' +
                    '"' + entry.form + '",' +
                    '"' + entry.pos + '",' +
-                   '""'  # entry.noun_gender
-                   + ',' +
-                   '""'  # entry.verb_class
-                   + "," +
+                   '"' + entry.noun_gender + '",' +
+                   '"' + entry.verb_class + '",' +
+                 #  '"",'  # entry.verb_class
+
                    '""'  # entry.adj_f + "," +
                    + "," +
                    '""'  # entry.adj_p + "," +
@@ -86,6 +92,7 @@ class MysqlRepository(Repository):
                    + "," +
                    '""'  # entry.definition
                    + "," +
+                   '"' + entry.origin_lang + '",' +
                    '"' + entry.origin_form + '")')
             self.cursor.execute(sql)
             self.connection.commit()

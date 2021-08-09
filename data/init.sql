@@ -13,6 +13,7 @@ USE french_words;
         form_p VARCHAR(255),
         form_fp VARCHAR(255),
         definition VARCHAR(255),
+        origin_lang VARCHAR(255),
         origin_form VARCHAR(255),
         primary key (id)
         );

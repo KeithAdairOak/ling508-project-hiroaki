@@ -26,8 +26,9 @@ def sound(param):
 
 
 def fetch(param) -> LexicalEntries:
-    origin_form = str
-    origin_lang = str
+    origin_form = ""
+    origin_lang = ""
+    verb_class = ""
     entries = MySQL.select_lexicon(param)
     if entries:
         print("\nretrieved from db")
@@ -44,10 +45,10 @@ def fetch(param) -> LexicalEntries:
 
         l_obj = Larousse(param)
         bs = l_obj.get_content().find("div", {"class":"Zone-Entree1 header-article"})
-        entries, origin_form, origin_lang = add_entry(bs, param, entries, origin_form, origin_lang)
+        entries, verb_class, origin_form, origin_lang = add_entry(bs, param, entries, verb_class, origin_form, origin_lang)
 
         for bs in l_obj.get_content().find_all("div", {"class":"Zone-Entree header-article"}):
-            entries, origin_form, origin_lang = add_entry(bs, param, entries, origin_form,origin_lang)
+            entries, verb_class, origin_form, origin_lang = add_entry(bs, param, entries, verb_class, origin_form, origin_lang)
         print("\nretrieved from web")
 
         MySQL.insert_lexicon(entries)
@@ -55,8 +56,7 @@ def fetch(param) -> LexicalEntries:
     return entries
 
 
-def add_entry(bs, param, entries, origin_form, origin_lang) -> (LexicalEntries, str):
-
+def add_entry(bs, param, entries, verb_class, origin_form, origin_lang) -> (LexicalEntries, str):
 
     entry = LexicalEntry()
     entry.entry = param
@@ -72,23 +72,20 @@ def add_entry(bs, param, entries, origin_form, origin_lang) -> (LexicalEntries, 
    #     mco = re.match("(^.+?) (.+?) ", pos.get_text())
     entry.pos = mco[0]
     if entry.pos == "verbe":
-        set_verb_class(entry)
+        if verb_class == "":
+            verb_class = get_verb_class(entry.form)
+        entry.verb_class = verb_class
+
     if entry.pos == "nom":
         try:
             entry.noun_gender = mco[1]
         except IndexError:
             entry.noun_gender = ""
 
-#        elif i == 1:
- #           extra = m
-#        elif i == 3:
-  #          extra2 = m
-#        re.sub(" (.+)", "", pos.get_text())
-
     check_origin_form = bs.find("p", {"class": "OrigineDefinition"})
     if check_origin_form:
-        italic_form = check_origin_form.find("i").get_text()
         origin_lang = ""
+        italic_form = check_origin_form.find("i").get_text()
         origin_form = check_origin_form.get_text()
         origin_form = re.sub("^\(", "", origin_form)
         origin_form = re.sub("\)$", "", origin_form)
@@ -107,20 +104,21 @@ def add_entry(bs, param, entries, origin_form, origin_lang) -> (LexicalEntries, 
     if [_ for _ in entries if _.pos == entry.pos and _.form == entry.form]:
         pass
     else:
+        entry.verb_class = verb_class
         entry.origin_lang = origin_lang
         entry.origin_form = origin_form
         entries.append(entry)
-    return entries, origin_form, origin_lang
+    return entries, verb_class, origin_form, origin_lang
 
 
-def set_verb_class(entry):
+def get_verb_class(param):
     try:
-        html = urlopen("https://la-conjugaison.nouvelobs.com/du/verbe/" + entry.form + ".php")
+        html = urlopen("https://la-conjugaison.nouvelobs.com/du/verbe/" + param + ".php")
     except Exception as e:
         print("\nError:", e)
         return []
     bs2 = BeautifulSoup(html.read(), 'html.parser')
     grammar_desc = bs2.find("div", {"class": "bloc"}).get_text()
-    pos_verbclass = re.match("^.* du ([123]).* groupe", grammar_desc).groups()
+    pos_verbclass = re.match("^.* du ([123]).* groupe", grammar_desc)
 #    entry.pos = pos_verbclass[0]
-    entry.verb_class = pos_verbclass[0]
+    return pos_verbclass.groups()[0]
