@@ -93,11 +93,13 @@ def add_entry(bs, param, entries, origin_form, origin_lang) -> (LexicalEntries, 
         origin_form = re.sub("^\(", "", origin_form)
         origin_form = re.sub("\)$", "", origin_form)
         for c in origin_form.split(" "):
-            if italic_form in c:
-                origin_lang = re.sub("^ ", "", origin_lang)
+            origin_lang = origin_lang + " " + c
+            if italic_form in origin_lang:
+                origin_lang = re.sub("^ ", "", origin_lang).replace(italic_form,"")
+                origin_lang = " ".join([_ for _ in origin_lang.split(" ") if re.match("\w+", _)])
                 entry.origin_lang = origin_lang
                 break
-            origin_lang = origin_lang + " " + c
+            
         origin_form = re.sub(origin_lang + " ", "", origin_form)
         entry.origin_form = origin_form
 #            set_verb_class(entry)
