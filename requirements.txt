@@ -3,5 +3,8 @@ pytest
 mysql-connector
 mpg123
 requests~=2.22.0
-mysql-connector-python
-BeautifulSoup4
+mysql-connector-python~=8.0.26
+BeautifulSoup4~=4.9.3
+Flask~=1.1.1
+pytest-flask
+flask_cors
