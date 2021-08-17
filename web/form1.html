@@ -71,22 +71,17 @@ async function handleSubmit(event) {
     value.word = data.get("word");
     const activeElement = document.activeElement;
 
-    let endpoint = 'http://localhost:5000/';
+     let endpoint = 'http://localhost:5000/parse';
     if(activeElement.id === "pronounce") {
         endpoint = 'http://localhost:5000/pronounce';
-        var response = await fetch(endpoint, {
-        method: 'POST',
-        body: JSON.stringify(value),
-        headers: {'Content-Type': 'application/json',
-        }});
-    } else if (activeElement.id === "search") {
-        endpoint = 'http://localhost:5000/search';
-        var response = await fetch(endpoint, {
-        method: 'POST',
-        body: JSON.stringify(value),
-        headers: {'Content-Type': 'application/json',
-        }});
     }
+    const response = await fetch(endpoint, {
+        method: 'POST',
+        body: JSON.stringify(value),
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    });
     const myJson = await response.json();
     console.log(myJson);
 

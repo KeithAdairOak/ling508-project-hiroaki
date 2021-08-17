@@ -1,5 +1,8 @@
-from app.main import *
+from app.services import Services
+import os
 
 
-sound("Je peux parler en français,")
-sound("mais je ne suis pas française.")
+# pronounce("mais je ne suis pas française.")
+filepath = Services.pronounce("Je peux parler en français,")
+os.system('mpg123 "' + filepath + '"')
+os.system('rm "' + filepath + '"')

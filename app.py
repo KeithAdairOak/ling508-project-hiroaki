@@ -1,6 +1,7 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS, cross_origin
 from logging.config import dictConfig
+import os
 
 from app.services import Services
 
@@ -40,7 +41,13 @@ def doc() -> str:
 def pronounce():
     data = request.get_json()
     app.logger.info(f"/parse - Got request: {data}")
-    main.sound(data.get('word'))
+    filepath = Services.pronounce(data.get('word'))
+
+    print(filepath)
+
+    os.system('mpg123 "' + filepath + '"')
+    os.system('rm "' + filepath + '"')
+
     return jsonify({"msg": "success"})
 
 if __name__ == "__main__":
