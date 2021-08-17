@@ -17,8 +17,6 @@
         <input type="submit" id="pronounce" name="pronounce" value="Pronounce"/>
     </div>
 </form>
-
-<h2>Response: </h2>
 <pre id="response"></pre>
     <!--
 
@@ -70,26 +68,26 @@ async function handleSubmit(event) {
     const value = Object.fromEntries(data.entries());
     value.word = data.get("word");
     const activeElement = document.activeElement;
-
     let endpoint = 'http://localhost:5000/';
     if(activeElement.id === "pronounce") {
         endpoint = 'http://localhost:5000/pronounce';
-        var response = await fetch(endpoint, {
+    const response = await fetch(endpoint, {
         method: 'POST',
         body: JSON.stringify(value),
         headers: {'Content-Type': 'application/json',
         }});
+    var myJson = await response.json();
     } else if (activeElement.id === "search") {
         endpoint = 'http://localhost:5000/search';
-        var response = await fetch(endpoint, {
+    const response = await fetch(endpoint, {
         method: 'POST',
         body: JSON.stringify(value),
         headers: {'Content-Type': 'application/json',
         }});
+    var myJson = await response.json();
+    document.getElementById('response').textContent = JSON.stringify(myJson, undefined, 2);
     }
-    const myJson = await response.json();
     console.log(myJson);
-
     /*
     document.getElementById('response').textContent = JSON.stringify(myJson, undefined, 2);
 

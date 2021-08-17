@@ -3,6 +3,6 @@ import os
 
 
 # pronounce("mais je ne suis pas française.")
-filepath = Services.pronounce("Je peux parler en français,")
+filepath = pronounce()
 os.system('mpg123 "' + filepath + '"')
 os.system('rm "' + filepath + '"')

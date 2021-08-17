@@ -1,7 +1,8 @@
-from flask import Flask, request, jsonify, send_file
-from flask_cors import CORS, cross_origin
-from logging.config import dictConfig
 import os
+from logging.config import dictConfig
+import app
+from flask import Flask, request, jsonify
+from flask_cors import CORS, cross_origin
 
 from app.services import Services
 
@@ -21,12 +22,12 @@ dictConfig({
     }
 })
 
+services = Services()
 
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
 #cors = CORS(app, resources={r"/pronounce": {"origins": "http://localhost:port"}})
-cors = CORS(app, resources={r"/pronounce": {"origins": "http://localhost:63342"}})
-services = Services()
+cors = CORS(app, resources={r"/*": {"origins": "http://localhost:63342"}})
 
 
 @app.route('/')
@@ -40,15 +41,23 @@ def doc() -> str:
 @cross_origin(origin='localhost', headers=['Content-Type', 'Authorization'])
 def pronounce():
     data = request.get_json()
-    app.logger.info(f"/parse - Got request: {data}")
-    filepath = Services.pronounce(data.get('word'))
-
-    print(filepath)
-
+    app.logger.info(f"/pronounce - Got request: {data}")
+    filepath = services.pronounce(data.get('word'))
     os.system('mpg123 "' + filepath + '"')
     os.system('rm "' + filepath + '"')
 
     return jsonify({"msg": "success"})
 
+@app.route("/search", methods=["POST"])
+@cross_origin(origin='localhost', headers=['Content-Type', 'Authorization'])
+def search():
+    data = request.get_json()
+    app.logger.info(f"/search - Got request: {data}")
+    param = data.get('word')
+    res = services.fetch(param)
+    ret = [{"form": _.form, "pos": _.pos, "verb_class": _.verb_class, "noun_gender": _.noun_gender, \
+            "origin_form": _.origin_form, "origin_lang": _.origin_lang} for _ in res][:1]
+
+    return jsonify(ret)
 if __name__ == "__main__":
     app.run(host='0.0.0.0')

@@ -1,5 +1,7 @@
 from app.main import *
+from app.services import Services
 
+s = Services()
 
 def test_fetch():
     vb = VerbClass
@@ -7,7 +9,7 @@ def test_fetch():
     p = Person
     assert p.TRO.value == "Troisième personne"
 
-    entries = fetch("aimer")
+    entries = s.fetch("aimer")
 
 
 
@@ -29,3 +31,4 @@ def test_fetch():
     entries = fetch("cet")
     print("\n", [(_.entry, _.form, _.pos, _.verb_class, _.noun_gender, _.origin_form, _.origin_lang) for _ in entries[:1]])
 
+    entries = s.fetch("etre")
