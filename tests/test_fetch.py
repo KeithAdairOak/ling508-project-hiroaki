@@ -1,4 +1,4 @@
-from app.main import *
+
 from app.services import Services
 
 s = Services()
@@ -19,16 +19,16 @@ def test_fetch():
 
 
 
-    entries = fetch("cheval")
+    entries = s.fetch("cheval")
     print("\n", [(_.entry, _.form, _.pos, _.verb_class, _.noun_gender, _.origin_form, _.origin_lang) for _ in entries[:1]])
 
  #   assert len(entries) == 2
 
-    entries = fetch("difficile")
+    entries = s.fetch("difficile")
     print("\n", [(_.entry, _.form, _.pos, _.verb_class, _.noun_gender, _.origin_form, _.origin_lang) for _ in entries[:1]])
 
   #  assert len(entries) == 2
-    entries = fetch("cet")
+    entries = s.fetch("cet")
     print("\n", [(_.entry, _.form, _.pos, _.verb_class, _.noun_gender, _.origin_form, _.origin_lang) for _ in entries[:1]])
 
     entries = s.fetch("etre")
