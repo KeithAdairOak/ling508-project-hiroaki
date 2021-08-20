@@ -22,7 +22,7 @@ dictConfig({
     }
 })
 
-services = Services()
+
 
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -42,7 +42,8 @@ def doc() -> str:
 def pronounce():
     data = request.get_json()
     app.logger.info(f"/pronounce - Got request: {data}")
-    filepath = services.pronounce(data.get('word'))
+    services = Services(data.get('word'))
+    filepath = services.pronounce()
     os.system('mpg123 "' + filepath + '"')
     os.system('rm "' + filepath + '"')
 
@@ -53,8 +54,8 @@ def pronounce():
 def search():
     data = request.get_json()
     app.logger.info(f"/search - Got request: {data}")
-    param = data.get('word')
-    res = services.fetch(param)
+    services = Services(data.get('word'))
+    res = services.fetch()
     ret = [{"form": _.form, "pos": _.pos, "verb_class": _.verb_class, "noun_gender": _.noun_gender, \
             "origin_form": _.origin_form, "origin_lang": _.origin_lang} for _ in res][:1]
 

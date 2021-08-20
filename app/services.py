@@ -1,10 +1,9 @@
 import db.mysql_repository
 from model.generators import *
 from gtts import gTTS
-from app.larousse import Larousse
 from urllib.request import urlopen
+import requests
 
-import bs4.element
 from bs4 import BeautifulSoup
 import logging
 import re
@@ -13,20 +12,21 @@ import unidecode
 
 class Services:
 
-    def __init__(self):
+    def __init__(self, param):
+        self.param = param
         self.MySQL = db.mysql_repository.MysqlRepository()
 
-    def pronounce(self, param) -> str:
-        filename = param + '.mp3'
-        tts = gTTS(text=param, lang='fr')
+    def pronounce(self) -> str:
+        filename = self.param + '.mp3'
+        tts = gTTS(text=self.param, lang='fr')
         tts.save(filename)
         return filename
 
-    def fetch(self, param) -> LexicalEntries:
+    def fetch(self) -> LexicalEntries:
         origin_form = ""
         origin_lang = ""
         verb_class = ""
-        entries = self.MySQL.select_lexicon(param)
+        entries = self.MySQL.select_lexicon(self.param)
         if entries:
             print("\nretrieved from db")
             pass
@@ -37,13 +37,12 @@ class Services:
                                 level=logging.DEBUG, format='%(asctime)s [%(levelname)s] %(message)s',
                                 datefmt='%m/%d/%Y %I:%M:%S %p')
 
-            l_obj = Larousse(param)
-            bs = l_obj.get_content().find("div", {"class": "Zone-Entree1 header-article"})
-            entries, verb_class, origin_form, origin_lang = self.add_entry(bs, param, entries, verb_class, origin_form,
+            bs = self.get_content().find("div", {"class": "Zone-Entree1 header-article"})
+            entries, verb_class, origin_form, origin_lang = self.add_entry(bs, entries, verb_class, origin_form,
                                                                            origin_lang)
 
-            for bs in l_obj.get_content().find_all("div", {"class": "Zone-Entree header-article"}):
-                entries, verb_class, origin_form, origin_lang = self.add_entry(bs, param, entries, verb_class,
+            for bs in self.get_content().find_all("div", {"class": "Zone-Entree header-article"}):
+                entries, verb_class, origin_form, origin_lang = self.add_entry(bs, entries, verb_class,
                                                                                origin_form,
                                                                                origin_lang)
             print("\nretrieved from web")
@@ -51,10 +50,17 @@ class Services:
 
         return entries
 
-    def add_entry(self, bs, param, entries, verb_class, origin_form, origin_lang) -> (LexicalEntries, str):
+    def get_content(self):
+        url = "https://www.larousse.fr/dictionnaires/francais/" + self.param.lower()
+        rq = requests.get(url=url)
+        if rq.status_code != 200:
+            raise Exception("Status code return an error")
+        return BeautifulSoup(rq.text, 'html.parser')
+
+    def add_entry(self, bs, entries, verb_class, origin_form, origin_lang) -> (LexicalEntries, str):
 
         entry = LexicalEntry()
-        entry.entry = param
+        entry.entry = self.param
 
         form = bs.find("h2")
         form.find("span").decompose()
@@ -69,7 +75,7 @@ class Services:
             entry.pos = mco[0]
         if entry.pos == "verbe":
             if verb_class == "":
-                verb_class = self.get_verb_class(unidecode.unidecode(entry.form))
+                verb_class = self.get_verb_class()
             entry.verb_class = verb_class
 
         if entry.pos == "nom":
@@ -106,9 +112,9 @@ class Services:
             entries.append(entry)
         return entries, verb_class, origin_form, origin_lang
 
-    def get_verb_class(self, param):
+    def get_verb_class(self):
         try:
-            html = urlopen("https://la-conjugaison.nouvelobs.com/du/verbe/" + param + ".php")
+            html = urlopen("https://la-conjugaison.nouvelobs.com/du/verbe/" + unidecode.unidecode(self.param).lower() + ".php")
         except Exception as e:
             print("\nError:", e)
             return ""
